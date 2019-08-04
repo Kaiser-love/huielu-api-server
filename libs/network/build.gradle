@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+}
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+dependencies {
+    def retrofit2_version = "2.4.0"
+    api "org.projectlombok:lombok:1.18.2"
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
+    api group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.2'
+    api "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    api "org.springframework.boot:spring-boot-starter-logging:$springBootVersion"
+}
+//设置项目编码
+tasks.withType(JavaCompile) {
+    print("设置编码")
+    options.encoding = "UTF-8"
+}
+

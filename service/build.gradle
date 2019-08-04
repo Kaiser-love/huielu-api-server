@@ -1,0 +1,78 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+}
+apply plugin: 'io.spring.dependency-management'
+apply from: "$rootDir/script/copy_framework.gradle"
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+ext {
+    server_name = "user-server"
+    server_port = 9999
+    springCloudVersion = 'Greenwich.SR1'
+}
+
+
+dependencies {
+    implementation('io.springfox:springfox-swagger2:2.9.2')
+    implementation('io.springfox:springfox-swagger-ui:2.9.2')
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.springframework.boot:spring-boot-starter-cache')
+    implementation group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-redis', version: '1.3.5.RELEASE'
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation('org.hibernate:hibernate-core:5.3.5.Final')
+    implementation 'com.alibaba:druid-spring-boot-starter:1.1.10'
+    runtime('mysql:mysql-connector-java')
+    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.batch:spring-batch-test')
+    api project(':libs:network')
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+    //poi
+    implementation group: 'org.apache.poi', name: 'poi', version: '4.0.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+    implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.0.0'
+    implementation("org.mongodb:mongo-java-driver:3.8.2")
+    // 阿里云短信借口依赖
+    implementation("com.aliyun:aliyun-java-sdk-core:4.0.6")
+    implementation("com.aliyun:aliyun-java-sdk-dysmsapi:1.1.0")
+    // jwt
+    implementation("com.auth0:java-jwt:3.2.0")
+    // mybatis-plus
+    implementation("com.baomidou:mybatis-plus-boot-starter:3.1.0")
+    // shiro
+    implementation("org.apache.shiro:shiro-spring:1.4.0")
+    implementation("org.apache.shiro:shiro-core:1.4.0")
+    implementation("io.jsonwebtoken:jjwt:0.9.0")
+    // 视频上传SDK
+    compile("com.qcloud:vod_api:2.1.1") {
+        exclude module: 'slf4j-log4j12'
+    }
+    // 读取csv
+    implementation("net.sourceforge.javacsv:javacsv:2.0")
+    // 主动推送
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+// 自定义resource文件夹
+sourceSets {
+    main {
+        resources.srcDirs = ['src/main/resources']
+    }
+}
+
+

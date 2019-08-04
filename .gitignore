@@ -1,0 +1,13 @@
+.gradle/
+.idea/
+*.iml
+build/
+out/
+bin/
+bower_components/
+
+.classpath
+.project
+.settings/
+service/.settings/
+lombok.config

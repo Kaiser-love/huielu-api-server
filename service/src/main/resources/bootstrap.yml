@@ -1,0 +1,47 @@
+DevServerIp: 47.107.139.6
+ProdServerIp: 172.18.165.227
+spring:
+  profiles:
+    active: dev
+  application:
+    name: HuieluServer
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: ConfigServer
+      profile: dev
+      label: master
+    consul:
+      host: ${DevServerIp}
+      port: 8500
+      discovery:
+        register: true
+        hostname: ${DevServerIp}
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: ConfigServer
+      label: master
+    consul:
+      host: ${ProdServerIp}
+      port: 8500
+      discovery:
+        register: true
+        hostname: ${ProdServerIp}
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
